@@ -71,7 +71,10 @@ async function init() {
 
   if (movie.category === 'series') {
     episodes = await fetchEpisodes(movieId).catch(() => []);
-    curEp = epIdParam ? episodes.find(e => e.id === epIdParam) || null : episodes[0] || null;
+    curEp = epIdParam
+      ? episodes.find(e => e.id === epIdParam) || null
+      : episodes[0] || null;
+
     curEpId = curEp?.id || null;
 
     if (curEp?.m3u8_url) src = curEp.m3u8_url;
@@ -90,32 +93,28 @@ async function init() {
   /* ─ configurar Vidstack ─ */
   player.src = src;
 
-  /*  Miniaturas sobre la barra  */
+  /* ─ miniaturas VTT ─ */
   if (vttUrl?.startsWith('http')) {
-    // Cuando el provider (y, por ende, el <video>) están listos…
     player.addEventListener('provider-change', () => {
       let thumbnail = player.querySelector('media-slider-thumbnail');
 
-      // Si el layout aún no generó el thumbnail, lo esperamos.
       if (!thumbnail) {
         const obs = new MutationObserver(() => {
           thumbnail = player.querySelector('media-slider-thumbnail');
           if (!thumbnail) return;
 
-          obs.disconnect();               // encontrado → dejar de observar
-          thumbnail.src = vttUrl;         // asignar VTT
-          console.log('Thumbnail VTT puesto (obs):', vttUrl);
+          obs.disconnect();
+          thumbnail.src = vttUrl;
         });
 
         obs.observe(player, { childList: true, subtree: true });
       } else {
-        thumbnail.src = vttUrl;           // ya estaba en el DOM
-        console.log('Thumbnail VTT puesto:', vttUrl);
+        thumbnail.src = vttUrl;
       }
     }, { once: true });
   }
 
-  /* ─ reanudar progreso ─ */
+  /* ─ REANUDAR PROGRESO ─ */
   const saved = await getProgress({
     userId: session.user.id,
     movieId,
@@ -123,18 +122,41 @@ async function init() {
   }).catch(() => null);
 
   const startAt = saved?.progress_seconds || 0;
+  console.log("Progreso guardado:", startAt); // Verificamos el progreso guardado
 
-  player.addEventListener('loaded-metadata', seek, { once: true });
-  player.addEventListener('can-play', seek, { once: true });
+  // Solo reanudar si hay progreso guardado
+  if (startAt > 5) {
+    player.addEventListener('canplay', () => {
+      console.log("Evento canplay disparado"); // Verificamos si canplay se dispara
+      // Esperar un micro-delay para que HLS esté totalmente listo
+      setTimeout(() => {
+        try {
+          console.log("Duración del video:", player.duration); // Verificamos la duración
+          if (player.duration && startAt < player.duration - 2) {
+            player.currentTime = startAt;
+            console.log(`Reanudando en: ${startAt}s`); // Verificamos la reanudación
+          }
+        } catch (err) {
+          console.warn('Seek failed:', err);
+        }
+      }, 150);
+    }, { once: true });
+  }
 
-  /* ─ guardar progreso ─ */
-  let lastSave = 0, lastSecond = -1;
+  /* ─ GUARDAR PROGRESO ─ */
+  let lastSave = 0;
+  let lastSecond = -1;
+
   const save = async (force = false) => {
     const now = Date.now();
     if (!force && now - lastSave < CONFIG.PROGRESS_THROTTLE_MS) return;
+
     const ct = Math.floor(player.currentTime || 0);
     if (!force && ct === lastSecond) return;
-    lastSecond = ct; lastSave = now;
+
+    lastSecond = ct;
+    lastSave = now;
+
     await upsertProgress({
       userId: session.user.id,
       movieId,
@@ -143,14 +165,16 @@ async function init() {
     }).catch(console.error);
   };
 
-  player.addEventListener('time-update', () => save(false));
+  player.addEventListener('timeupdate', () => save(false));
   player.addEventListener('pause', () => save(true));
 
   player.addEventListener('ended', async () => {
     await save(true);
+
     if (movie.category === 'series') {
       const i = episodes.findIndex(e => e.id === curEpId);
       const next = episodes[i + 1];
+
       if (next) {
         location.href =
           `/watch.html?movie=${encodeURIComponent(movieId)}&episode=${encodeURIComponent(next.id)}`;
