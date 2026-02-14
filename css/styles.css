@@ -8,7 +8,7 @@
   --panel2: #171926;
   --text: #f3f4f6;
   --muted: #a0a3b1;
-  --red: #e50914;
+  --red: #2563eb;
   --line: rgba(255, 255, 255, .10);
   --shadow: 0 18px 55px rgba(0, 0, 0, .55);
   --radius: 16px;
@@ -382,17 +382,27 @@ a {
   left: 10px;
   right: 10px;
   bottom: -3.6em;
-  height: 0.2em;
-  background: rgb(255 255 255 / 49%);
-  border-radius: 0.2em;
+  height: 0.25em;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0.3em;
   overflow: hidden;
 }
 
 .progressfill {
   height: 100%;
-  background: #ff364c;
   width: 30%;
+  border-radius: inherit;
   transition: width .25s ease;
+
+  /* Color base */
+  background: linear-gradient(90deg, #00eaff, #2563eb);
+
+  /* Glow neón fuerte pero elegante */
+  box-shadow:
+    0 0 4px #00eaff,
+    0 0 8px #00eaff,
+    0 0 16px #2563eb,
+    0 0 24px #2563eb;
 }
 
 /* ================= FORMS ================= */
