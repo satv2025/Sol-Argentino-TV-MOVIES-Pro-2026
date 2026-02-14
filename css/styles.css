@@ -453,17 +453,19 @@ textarea {
 /* ================= PLAYER ================= */
 
 .video-wrap {
-  border: 1px solid var(--line);
-  border-radius: var(--radius2);
-  overflow: hidden;
-  background: black;
   height: 64.5em;
+  position: relative;
+  /* Para asegurar que los controles estén en la capa correcta */
 }
 
 media-player {
-  width: 100%;
   display: block;
+  /* Asegura que el reproductor esté visible */
+  width: 100%;
   background: black;
+  /* Fondo negro para el reproductor */
+  height: 100%;
+  /* Ajuste de altura */
 }
 
 /* ================= EPISODES ================= */

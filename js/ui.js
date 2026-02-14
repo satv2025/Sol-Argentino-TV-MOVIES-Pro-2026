@@ -107,9 +107,8 @@ export async function renderAuthButtons() {
     return;
   }
 
-  const name = escapeHtml(
-    session.user.name || session.user.email || "Usuario"
-  );
+  // Mostrar el nombre de usuario si está disponible
+  const name = escapeHtml(session.user.name || "Usuario");
 
   host.innerHTML = `
     <a class="pill profile-link" href="/profile.html">${name}</a>
