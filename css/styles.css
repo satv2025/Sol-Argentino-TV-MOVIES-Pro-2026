@@ -176,10 +176,28 @@ a {
 }
 
 /* ================= SECTIONS ================= */
-
 .section {
   margin-top: 18px;
   width: 100%;
+  margin-bottom: 5em;
+}
+
+section.section:after {
+  content: "";
+  /* Es necesario para que el pseudo-elemento sea visible */
+  display: block;
+  /* Asegura que el pseudo-elemento sea un bloque */
+  border-bottom: 2px solid #2563eb;
+  /* El borde que quieres aplicar */
+  position: relative;
+  /* Si deseas dar espacio entre el contenido de la sección y el borde */
+  top: 3.4em;
+}
+
+/* El último section no tendrá el borde inferior */
+section.section:last-of-type:after {
+  content: none;
+  /* Elimina el contenido del pseudo-elemento :after */
 }
 
 .section-head {
@@ -328,7 +346,6 @@ a {
   width: 298px;
   flex: 0 0 auto;
   scroll-snap-align: start;
-  border: 1px solid var(--line);
   background: rgba(255, 255, 255, .03);
   border-radius: var(--radius);
   overflow: hidden;
@@ -338,6 +355,7 @@ a {
   height: auto;
   max-height: 18em !important;
   padding-bottom: 0.4em;
+  position: relative;
 }
 
 #continue-row .card {
@@ -345,8 +363,8 @@ a {
 }
 
 .card:hover {
-  transform: scale(1.05);
   background: rgba(255, 255, 255, .06);
+  outline: 2px solid #fff;
 }
 
 /* 🔥 16:9 REAL SIN ALTURA FIJA */
