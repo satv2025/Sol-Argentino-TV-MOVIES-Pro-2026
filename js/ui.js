@@ -60,16 +60,18 @@ export function toast(msg, type = "info") {
 ========================= */
 
 export function formatTime(secs) {
-  const s = Math.max(0, Math.floor(secs || 0));
-  const h = Math.floor(s / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  const r = s % 60;
+  const s = Math.max(0, Math.floor(secs || 0));  // Asegura que el tiempo sea un número válido
+  const h = Math.floor(s / 3600);                 // Calcula las horas
+  const m = Math.floor((s % 3600) / 60);         // Calcula los minutos
+  const r = s % 60;                              // Calcula los segundos
 
+  // Si las horas son mayores o iguales a 1, mostramos el formato HH:MM:SS
   if (h > 0) {
-    return `${h}:${String(m).padStart(2, "0")}:${String(r).padStart(2, "0")}`;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
   }
 
-  return `${m}:${String(r).padStart(2, "0")}`;
+  // Si las horas son 0, mostramos el formato MM:SS
+  return `${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
 }
 
 /* =========================
