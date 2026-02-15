@@ -9,10 +9,48 @@
   <link rel="stylesheet" href="/css/vidstack/1.css">
   <link rel="stylesheet" href="/css/vidstack/2.css">
   <link rel="icon" href="images/satvpluslogo.png">
+
+  <!-- estilos SOLO para el ojo -->
+  <style>
+    .password-field {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-field input {
+      width: 100%;
+      padding-right: 44px;
+    }
+
+    .pw-toggle {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      padding: 6px;
+      line-height: 1;
+      color: #2563eb;
+      opacity: .9;
+      display: grid;
+      place-items: center;
+    }
+
+    .pw-toggle:hover {
+      opacity: 1;
+    }
+
+    .pw-toggle svg {
+      display: block;
+    }
+  </style>
 </head>
 
 <body>
-  <header class=" topnav">
+  <header class="topnav">
     <div class="nav-inner container" id="topnav"></div>
   </header>
 
@@ -47,18 +85,26 @@
         <div class="grid">
           <div>
             <label>Contraseña</label>
-            <input id="password" type="password" required placeholder="********" />
+            <div class="password-field">
+              <input id="password" type="password" required placeholder="********" />
+              <button type="button" class="pw-toggle" data-toggle="#password" aria-label="Mostrar contraseña"
+                title="Mostrar/ocultar"></button>
+            </div>
           </div>
+
           <div>
             <label>Repetir contraseña</label>
-            <input id="password2" type="password" required placeholder="********" />
+            <div class="password-field">
+              <input id="password2" type="password" required placeholder="********" />
+              <button type="button" class="pw-toggle" data-toggle="#password2" aria-label="Mostrar contraseña"
+                title="Mostrar/ocultar"></button>
+            </div>
           </div>
         </div>
 
         <div class="form-actions">
           <button class="btn" type="submit">Registrarme</button>
           <a class="btn ghost" href="/login.html">Ya tengo cuenta</a>
-          <a class="btn ghost" href="/index.html">Volver</a>
         </div>
       </form>
     </div>
@@ -80,6 +126,38 @@
 
     renderNav({ active: "" });
     renderAuthButtons();
+
+    // ====== OJO CONTRASEÑA (SVG #2563eb via currentColor) ======
+    const ICON_HIDE = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.30147 15.5771C4.77832 14.2684 3.6904 12.7726 3.18002 12C3.6904 11.2274 4.77832 9.73158 6.30147 8.42294C7.87402 7.07185 9.81574 6 12 6C14.1843 6 16.1261 7.07185 17.6986 8.42294C19.2218 9.73158 20.3097 11.2274 20.8201 12C20.3097 12.7726 19.2218 14.2684 17.6986 15.5771C16.1261 16.9282 14.1843 18 12 18C9.81574 18 7.87402 16.9282 6.30147 15.5771ZM12 4C9.14754 4 6.75717 5.39462 4.99812 6.90595C3.23268 8.42276 2.00757 10.1376 1.46387 10.9698C1.05306 11.5985 1.05306 12.4015 1.46387 13.0302C2.00757 13.8624 3.23268 15.5772 4.99812 17.0941C6.75717 18.6054 9.14754 20 12 20C14.8525 20 17.2429 18.6054 19.002 17.0941C20.7674 15.5772 21.9925 13.8624 22.5362 13.0302C22.947 12.4015 22.947 11.5985 22.5362 10.9698C21.9925 10.1376 20.7674 8.42276 19.002 6.90595C17.2429 5.39462 14.8525 4 12 4ZM10 12C10 10.8954 10.8955 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14C10.8955 14 10 13.1046 10 12ZM12 8C9.7909 8 8.00004 9.79086 8.00004 12C8.00004 14.2091 9.7909 16 12 16C14.2092 16 16 14.2091 16 12C16 9.79086 14.2092 8 12 8Z" fill="currentColor"/>
+      </svg>`;
+
+    const ICON_SHOW = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M2.68936 6.70456C2.52619 6.32384 2.08528 6.14747 1.70456 6.31064C1.32384 6.47381 1.14747 6.91472 1.31064 7.29544L2.68936 6.70456ZM15.5872 13.3287L15.3125 12.6308L15.5872 13.3287ZM9.04145 13.7377C9.26736 13.3906 9.16904 12.926 8.82185 12.7001C8.47466 12.4742 8.01008 12.5725 7.78417 12.9197L9.04145 13.7377ZM6.37136 15.091C6.14545 15.4381 6.24377 15.9027 6.59096 16.1286C6.93815 16.3545 7.40273 16.2562 7.62864 15.909L6.37136 15.091ZM22.6894 7.29544C22.8525 6.91472 22.6762 6.47381 22.2954 6.31064C21.9147 6.14747 21.4738 6.32384 21.3106 6.70456L22.6894 7.29544ZM19 11.1288L18.4867 10.582V10.582L19 11.1288ZM19.9697 13.1592C20.2626 13.4521 20.7374 13.4521 21.0303 13.1592C21.3232 12.8663 21.3232 12.3914 21.0303 12.0985L19.9697 13.1592ZM11.25 16.5C11.25 16.9142 11.5858 17.25 12 17.25C12.4142 17.25 12.75 16.9142 12.75 16.5H11.25ZM16.3714 15.909C16.5973 16.2562 17.0619 16.3545 17.409 16.1286C17.7562 15.9027 17.8545 15.4381 17.6286 15.091L16.3714 15.909ZM5.53033 11.6592C5.82322 11.3663 5.82322 10.8914 5.53033 10.5985C5.23744 10.3056 4.76256 10.3056 4.46967 10.5985L5.53033 11.6592ZM2.96967 12.0985C2.67678 12.3914 2.67678 12.8663 2.96967 13.1592C3.26256 13.4521 3.73744 13.4521 4.03033 13.1592L2.96967 12.0985ZM12 13.25C8.77611 13.25 6.46133 11.6446 4.9246 9.98966C4.15645 9.16243 3.59325 8.33284 3.22259 7.71014C3.03769 7.3995 2.90187 7.14232 2.8134 6.96537C2.76919 6.87696 2.73689 6.80875 2.71627 6.76411C2.70597 6.7418 2.69859 6.7254 2.69411 6.71533C2.68925 6.7043 2.68936 6.70456 2 7C1.31064 7.29544 1.31218 7.299 1.35453 7.39311C1.47176 7.63619 1.93366 8.47736 3.8254 11.0103C5.53867 12.8554 8.22389 14.75 12 14.75V13.25ZM15.3125 12.6308C14.3421 13.0128 13.2417 13.25 12 13.25V14.75C13.4382 14.75 14.7246 14.4742 15.8619 14.0266L15.3125 12.6308ZM7.78417 12.9197L6.37136 15.091L7.62864 15.909L9.04145 13.7377L7.78417 12.9197ZM22 7C21.3106 6.70456 21.3111 6.70349 21.3111 6.7036C21.3107 6.70452 21.307 6.71275 21.2758 6.78125C21.1526 7.03267 20.6354 7.9432 18.4867 10.582L19.5133 11.6757C20.6023 10.6535 21.3917 9.56587 21.9085 8.73646C22.4889 7.71415 22.6894 7.29544 22 7ZM18.4867 10.582C17.6277 11.3882 16.5739 12.1343 15.3125 12.6308L15.8619 14.0266C17.3355 13.4466 18.5466 12.583 19.5133 11.6757L18.4867 10.582ZM18.4697 11.6592L19.9697 13.1592L21.0303 12.0985L19.5303 10.5985L18.4697 11.6592ZM11.25 14V16.5H12.75V14H11.25ZM14.9586 13.7377L16.3714 15.909L17.6286 15.091L16.2158 12.9197L14.9586 13.7377ZM4.46967 10.5985L2.96967 12.0985L4.03033 13.1592L5.53033 11.6592L4.46967 10.5985Z" fill="currentColor"/>
+      </svg>`;
+
+    function setupPasswordToggles() {
+      document.querySelectorAll(".pw-toggle[data-toggle]").forEach((btn) => {
+        const sel = btn.getAttribute("data-toggle");
+        const input = document.querySelector(sel);
+        if (!input) return;
+
+        btn.innerHTML = (input.type === "password") ? ICON_SHOW : ICON_HIDE;
+
+        btn.addEventListener("click", () => {
+          const willShow = input.type === "password";
+          input.type = willShow ? "text" : "password";
+
+          btn.setAttribute("aria-label", willShow ? "Ocultar contraseña" : "Mostrar contraseña");
+          btn.innerHTML = willShow ? ICON_HIDE : ICON_SHOW;
+        });
+      });
+    }
+
+    setupPasswordToggles();
+    // ====== FIN OJO CONTRASEÑA ======
 
     document.getElementById("form-register").addEventListener("submit", async (e) => {
       e.preventDefault();

@@ -123,13 +123,21 @@ function validateMovie(m) {
 }
 
 function episodePayload() {
+  const sinopsis = $("#ep-sinopsis").value.trim();
+  const thumbEpisode = $("#ep-thumb-episode").value.trim();
+
   return {
     series_id: getDropdownValue("ep-series-dropdown"),
     season: Number($("#ep-season").value),
     episode_number: Number($("#ep-number").value),
-    title: $("#ep-title").value.trim(),
+    title: $("#ep-title").value.trim() || null,
+
+    // ✅ columnas EXACTAS de tu tabla
+    "sinopsis": sinopsis || null,
+    "thumbnails-episode": thumbEpisode || null,
+
     m3u8_url: $("#ep-m3u8").value.trim(),
-    vtt_url: $("#ep-vtt").value.trim() || null,
+    vtt_url: $("#ep-vtt").value.trim() || null, // (dejalo si también existe en tu tabla)
   };
 }
 

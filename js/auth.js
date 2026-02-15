@@ -34,6 +34,15 @@ export async function signUpWithEmail({ email, password, full_name, username, ph
   return data;
 }
 
+// ✅ AGREGÁ ESTO
+export async function sendRecoveryEmail(email) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${window.location.origin}/recovery-pass.html`,
+  });
+  if (error) throw error;
+  return data;
+}
+
 export async function signOut() {
   await supabase.auth.signOut();
 }

@@ -151,8 +151,9 @@ a {
   border: 1px solid var(--line);
 }
 
-.btn:active {
-  transform: scale(0.5);
+.btn:hover {
+  color: var(--red);
+  background: #fff;
 }
 
 .pill {
@@ -666,7 +667,6 @@ media-player {
   color: var(--text);
   max-width: 360px;
   box-shadow: var(--shadow);
-  display: none;
 }
 
 .toast.show {
