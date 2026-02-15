@@ -262,7 +262,7 @@ async function init() {
               : `/watch.html?movie=${encodeURIComponent(m.id)}`;
 
             const subtitle = ep
-              ? `S${ep.season}E${ep.episode_number} · ${ep.title || ""} · ${formatTime(r.progress_seconds)}`
+              ? `T${ep.season}E${ep.episode_number} · ${ep.title || ""} · ${formatTime(r.progress_seconds)}`
               : `Continuar · ${formatTime(r.progress_seconds)}`;
 
             const pct = Math.min(98, Math.max(2, (r.progress_seconds % 3600) / 36));

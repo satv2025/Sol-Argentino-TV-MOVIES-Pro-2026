@@ -83,7 +83,9 @@ export async function fetchEpisodes(seriesId) {
       title,
       m3u8_url,
       vtt_url,
-      created_at
+      created_at,
+      sinopsis,
+      thumbnails-episode
     `)
     .eq("series_id", seriesId)
     .order("season", { ascending: true })
@@ -165,7 +167,9 @@ export async function fetchContinueWatching(userId, limit = 24) {
         title,
         season,
         episode_number,
-        vtt_url
+        vtt_url,
+        sinopsis,
+        thumbnails-episode
       )
     `)
     .eq("user_id", userId)
