@@ -172,7 +172,6 @@ export function cardHtml(
 export async function setMovieTitleFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   const movieId = urlParams.get('movie');  // Obtener el ID de la película desde la URL
-  const episodeId = urlParams.get('episode');  // Obtener el ID del episodio, si está presente
 
   // Si no se encuentra el ID de la película en la URL, asignamos un título predeterminado
   if (!movieId) {
@@ -186,29 +185,14 @@ export async function setMovieTitleFromUrl() {
 
     // Si la película es encontrada, configuramos el título de la página
     if (movie) {
-      let title = movie.title;  // Usamos el título de la película para el título de la página
-
-      // Si hay un episodio, agregamos el título del episodio al título de la película
-      if (episodeId) {
-        const episode = await fetchEpisode(episodeId); // Aquí llamamos a la función para obtener detalles del episodio
-        if (episode) {
-          title += ` - Episodio ${episode.episode_number}: ${episode.title || 'Sin título'}`;
-        }
-      }
-
-      // Finalmente, establecemos el título de la página
-      document.title = `${title} · SATV+`;
+      document.title = `${movie.title} · SATV+`;  // Usamos solo el título de la película
     } else {
-      // Si la película no se encuentra, asignamos un nombre por defecto
-      const randomTitles = ["Nivel X", "Reite666", "Película Desconocida", "Film Genérico"];
-      const randomTitle = randomTitles[Math.floor(Math.random() * randomTitles.length)];
-      document.title = `${randomTitle} · SATV+`;
+      // Si la película no se encuentra, asignamos un título claro
+      document.title = "Película no encontrada · SATV+";
     }
   } catch (error) {
     console.error("Error al obtener la película:", error);
-    // Si ocurre un error, asignamos un nombre por defecto
-    const randomTitles = ["Nivel X", "Reite666", "Película Desconocida", "Film Genérico"];
-    const randomTitle = randomTitles[Math.floor(Math.random() * randomTitles.length)];
-    document.title = `${randomTitle} · SATV+`;
+    // Si ocurre un error, asignamos un mensaje claro de error
+    document.title = "Error al cargar la película · SATV+";
   }
 }
