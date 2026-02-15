@@ -30,6 +30,25 @@ function buildEpisodes(episodes, currentEpisodeId, movieId) {
   }).join("");
 }
 
+function setPreviewThumbnails(playerEl, vttUrl) {
+  // Vidstack: los thumbnails viven en el LAYOUT (video/plyr), no en el player.
+  const layout =
+    playerEl?.querySelector("media-video-layout, media-plyr-layout") ||
+    document.querySelector("media-video-layout, media-plyr-layout");
+
+  if (!layout) return;
+
+  if (vttUrl) {
+    layout.setAttribute("thumbnails", vttUrl);
+
+    // (Opcional) fallback por si algún día probás una versión vieja:
+    // playerEl.setAttribute("thumbnails", vttUrl);
+  } else {
+    layout.removeAttribute("thumbnails");
+    // playerEl.removeAttribute("thumbnails");
+  }
+}
+
 async function init() {
   renderNav({ active: "home" });
   await renderAuthButtons();
@@ -95,6 +114,13 @@ async function init() {
     const wrap = $("#episodes-wrap");
     if (wrap) wrap.classList.add("hidden");
   }
+
+  // Thumbnails VTT (preview thumbnails)
+  const thumbsVtt = (movie.category === "series")
+    ? (currentEpisode?.vtt_url || movie.vtt_url || null)
+    : (movie.vtt_url || null);
+
+  setPreviewThumbnails(player, thumbsVtt);
 
   // Set source (Vidstack)
   // Vidstack supports setting `src` directly on media-player for HLS.
