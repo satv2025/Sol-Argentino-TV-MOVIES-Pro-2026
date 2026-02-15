@@ -10,7 +10,7 @@
   --muted: #a0a3b1;
   --red: #2563eb;
   --line: rgba(255, 255, 255, .10);
-  --shadow: 0 18px 55px rgba(0, 0, 0, .55);
+  --shadow: 0 18px 55px rgba(0, 0, 0, 0);
   --radius: 16px;
   --radius2: 22px;
 
@@ -215,6 +215,7 @@ section.section:last-of-type:after {
 .section-title {
   font-size: 16px;
   margin: 0;
+  margin-left: -2.77em;
 }
 
 .muted {
