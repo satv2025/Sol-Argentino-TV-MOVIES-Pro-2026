@@ -567,7 +567,7 @@ media-player {
 /* Sinopsis */
 .ep-synopsis {
   font-size: 14px;
-  color: #ffff;
+  color: #ffff !important;
   line-height: 1.5;
   font-weight: 300;
   max-height: 5em;

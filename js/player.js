@@ -31,7 +31,7 @@ function buildEpisodes(episodes, currentEpisodeId, movieId) {
     <a class="ep ${active}" href="${href}">
       <span class="ep-number">${ep.episode_number}</span>
       <div class="ep-thumbnail" style="background-image: url('${thumbnail}')"></div>
-      <div class="ep-title">${escapeHtml(ep.title || "Episodio")}</div>
+      <div class="ep-title">­­ ­ ­${escapeHtml(ep.title || "Episodio")}</div>
       <div class="ep-synopsis">${escapeHtml(sinopsis)}</div>
     </a>
   `;
