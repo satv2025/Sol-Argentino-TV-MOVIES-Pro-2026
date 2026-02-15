@@ -18,11 +18,15 @@
     position: relative;
     contain: style;
     box-sizing: border-box;
-    user-select: none
+    user-select: none;
 }
 
 [data-media-player] * {
     box-sizing: border-box
+}
+
+video {
+    height: 66em;
 }
 
 :where([data-media-player][data-view-type=video]) {
