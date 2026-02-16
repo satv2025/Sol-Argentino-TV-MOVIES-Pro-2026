@@ -69,9 +69,14 @@
         </div>
 
         <div style="margin-top:10px;">
-          <!-- href real (sin #). JS lo intercepta y agrega ?id=... -->
           <a id="forgot-password" class="muted" href="/recovery.html" style="font-size:14px;text-decoration:underline;">
             ¿Olvidaste tu contraseña?
+          </a>
+
+          <span class="muted" style="font-size:14px;"> · </span>
+
+          <a id="forgot-email" class="muted" href="/emailchange.html" style="font-size:14px;text-decoration:underline;">
+            ¿Olvidaste tu correo electrónico?
           </a>
         </div>
 
@@ -129,17 +134,26 @@
     setupPasswordToggles();
     // ====== FIN OJO ======
 
-    // ====== GATE: mandar a /recovery.html?id=... (href real, sin #) ======
+    // ====== GATE ======
     function newGateId() {
       return (crypto?.randomUUID?.() || (Date.now().toString(36) + Math.random().toString(36).slice(2)));
     }
 
+    function goWithGate(path, storagePrefix) {
+      const gateId = newGateId();
+      sessionStorage.setItem(storagePrefix + "_gate", gateId);
+      sessionStorage.setItem(storagePrefix + "_gate_ts", String(Date.now()));
+      window.location.href = `${path}?id=${encodeURIComponent(gateId)}`;
+    }
+
     document.getElementById("forgot-password").addEventListener("click", (e) => {
       e.preventDefault();
-      const gateId = newGateId();
-      sessionStorage.setItem("recovery_gate", gateId);
-      sessionStorage.setItem("recovery_gate_ts", String(Date.now()));
-      window.location.href = `/recovery.html?id=${encodeURIComponent(gateId)}`;
+      goWithGate("/recovery.html", "recovery");
+    });
+
+    document.getElementById("forgot-email").addEventListener("click", (e) => {
+      e.preventDefault();
+      goWithGate("/emailchange.html", "emailchange");
     });
     // ====== FIN GATE ======
 
