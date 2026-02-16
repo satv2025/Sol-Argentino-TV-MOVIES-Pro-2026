@@ -25,42 +25,39 @@ Deno.serve(async (req) => {
   const origin = req.headers.get("origin");
   const cors = corsHeaders(origin);
 
-  // ✅ Preflight (antes de cualquier otra cosa)
+  // ✅ Preflight
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: cors });
   }
 
-  const headers = {
-    "Content-Type": "application/json",
-    ...cors,
-  };
-
-  // Respuesta neutra siempre (anti-enumeración)
-  const ok = new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers,
-  });
+  const headers = { "Content-Type": "application/json", ...cors };
+  const ok = new Response(JSON.stringify({ ok: true }), { status: 200, headers });
 
   try {
     if (req.method !== "POST") return ok;
 
-    // POST body (puede venir vacío o malformado)
     const body = await req.json().catch(() => null);
     if (!body) return ok;
 
-    const { username, new_email, origin: bodyOrigin } = body;
-    if (!username || !new_email || !bodyOrigin) return ok;
+    const { username, password, new_email, origin: bodyOrigin } = body;
+    if (!username || !password || !new_email || !bodyOrigin) return ok;
 
     const SB_URL = Deno.env.get("SB_URL");
     const SB_SERVICE_ROLE_KEY = Deno.env.get("SB_SERVICE_ROLE_KEY");
-    if (!SB_URL || !SB_SERVICE_ROLE_KEY) return ok;
+    const SB_ANON_KEY = Deno.env.get("SB_ANON_KEY");
+    if (!SB_URL || !SB_SERVICE_ROLE_KEY || !SB_ANON_KEY) return ok;
+
+    const safeOrigin = ALLOWED_ORIGINS.has(String(bodyOrigin))
+      ? String(bodyOrigin)
+      : "https://satvplus.com.ar";
 
     const admin = createClient(SB_URL, SB_SERVICE_ROLE_KEY);
 
     const uname = String(username).toLowerCase().trim();
     const newEmail = String(new_email).toLowerCase().trim();
+    const pw = String(password);
 
-    // 1) Buscar UUID por username en profiles
+    // 1) Resolver email actual por username (profiles)
     const { data: profile } = await admin
       .from("profiles")
       .select("id")
@@ -68,30 +65,32 @@ Deno.serve(async (req) => {
       .maybeSingle();
 
     if (!profile?.id) return ok;
-    const uid = String(profile.id);
 
-    // 2) Email real desde auth.users
-    const { data: userRes } = await admin.auth.admin.getUserById(uid);
+    const { data: userRes } = await admin.auth.admin.getUserById(String(profile.id));
     const currentEmail = userRes?.user?.email;
     if (!currentEmail) return ok;
 
-    // 3) Redirect seguro al front (evita open redirect)
-    const safeOrigin = ALLOWED_ORIGINS.has(String(bodyOrigin))
-      ? String(bodyOrigin)
-      : "https://satvplus.com.ar";
-
-    const redirectTo =
-      `${safeOrigin}/emailchange-approve.html?uid=${encodeURIComponent(uid)}` +
-      `&new=${encodeURIComponent(newEmail)}`;
-
-    await admin.auth.admin.generateLink({
-      type: "magiclink",
-      email: currentEmail,
-      options: { redirectTo },
+    // 2) Login con password (esto NO manda magic link)
+    const client = createClient(SB_URL, SB_ANON_KEY, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
     });
 
+    const { data: signInData, error: signInErr } = await client.auth.signInWithPassword({
+      email: String(currentEmail).toLowerCase(),
+      password: pw,
+    });
+
+    // neutro: si falla, no revelamos nada
+    if (signInErr || !signInData?.session) return ok;
+
+    // 3) Disparar el mail "Change email address"
+    await client.auth.updateUser(
+      { email: newEmail },
+      { emailRedirectTo: `${safeOrigin}/login.html` }
+    );
+
     return ok;
-  } catch (_e) {
+  } catch {
     return ok;
   }
 });
