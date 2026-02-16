@@ -1,17 +1,45 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
+const ALLOWED_ORIGINS = new Set<string>([
+  "https://satvplus.com.ar",
+  "http://localhost:5173",
+  "http://localhost:5500",
+]);
+
+function corsHeaders(origin: string | null) {
+  const o = origin ?? "";
+  const allowOrigin = ALLOWED_ORIGINS.has(o) ? o : "https://satvplus.com.ar"; // fallback seguro
+  return {
+    "Access-Control-Allow-Origin": allowOrigin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Credentials": "true",
+    "Vary": "Origin",
+  };
+}
+
 Deno.serve(async (req) => {
-  const ok = new Response(JSON.stringify({ ok: true }), {
-    headers: { "Content-Type": "application/json" },
-    status: 200,
-  });
+  const origin = req.headers.get("origin");
+  const headers = {
+    "Content-Type": "application/json",
+    ...corsHeaders(origin),
+  };
+
+  // ✅ Preflight
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers, status: 204 });
+  }
+
+  // Respuesta neutra siempre (anti-enumeración)
+  const ok = new Response(JSON.stringify({ ok: true }), { headers, status: 200 });
 
   try {
-    const { username, new_email, origin } = await req.json();
-    if (!username || !new_email || !origin) return ok;
+    if (req.method !== "POST") return ok;
 
-    // ✅ nombres correctos (NO SUPABASE_)
+    const { username, new_email, origin: bodyOrigin } = await req.json();
+    if (!username || !new_email || !bodyOrigin) return ok;
+
     const SB_URL = Deno.env.get("SB_URL");
     const SB_SERVICE_ROLE_KEY = Deno.env.get("SB_SERVICE_ROLE_KEY");
     if (!SB_URL || !SB_SERVICE_ROLE_KEY) return ok;
@@ -21,7 +49,7 @@ Deno.serve(async (req) => {
     const uname = String(username).toLowerCase().trim();
     const newEmail = String(new_email).toLowerCase().trim();
 
-    // 1) Buscar UUID por username en profiles
+    // 1) Buscar UUID por username
     const { data: profile } = await admin
       .from("profiles")
       .select("id")
@@ -31,14 +59,17 @@ Deno.serve(async (req) => {
     if (!profile?.id) return ok;
     const uid = String(profile.id);
 
-    // 2) Email real del usuario desde auth.users
+    // 2) Email real desde auth.users
     const { data: userRes } = await admin.auth.admin.getUserById(uid);
     const currentEmail = userRes?.user?.email;
     if (!currentEmail) return ok;
 
-    // 3) Magic link al email ACTUAL → redirect con uid + new
+    // 3) Redirect a tu front (usa el origin del body)
+    // Importante: validamos origin contra allowlist para evitar open redirect
+    const safeOrigin = ALLOWED_ORIGINS.has(String(bodyOrigin)) ? String(bodyOrigin) : "https://satvplus.com.ar";
+
     const redirectTo =
-      `${origin}/emailchange-approve.html?uid=${encodeURIComponent(uid)}&new=${encodeURIComponent(newEmail)}`;
+      `${safeOrigin}/emailchange-approve.html?uid=${encodeURIComponent(uid)}&new=${encodeURIComponent(newEmail)}`;
 
     await admin.auth.admin.generateLink({
       type: "magiclink",
@@ -47,7 +78,7 @@ Deno.serve(async (req) => {
     });
 
     return ok;
-  } catch {
+  } catch (_e) {
     return ok;
   }
 });
