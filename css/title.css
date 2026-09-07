@@ -5,11 +5,11 @@
 :root {
   --title-bg: #313131;
   --title-panel: #313131;
-  --title-panel-2: #353535;
+  
   --title-text: #f5f7fb;
   --title-muted: rgba(245, 247, 251, .74);
   --title-line: rgba(255, 255, 255, .12);
-  --title-line-strong: rgba(255, 255, 255, .24);
+  
   --title-hero-fade-height: 45%;
 
   --item-radius: 5px;
@@ -524,8 +524,8 @@ span.meta-dropitem {
   animation-delay: .095s;
 }
 
-.dropdown-menu:not([hidden]) .dropdown-item:nth-child(n+5),
-.-dropdown-menu:not([hidden]) .dropdown-item:nth-child(n+5) {
+.dropdown-menu:not([hidden]) .dropdown-item:nth-child(n/**/+5),
+.-dropdown-menu:not([hidden]) .dropdown-item:nth-child(n/**/+5) {
   animation-delay: .115s;
 }
 
@@ -612,21 +612,11 @@ span.meta-dropitem {
 }
 
 /* ================= SEASONS / GRIDS ================= */
-.seasons-all,
-.season-block {
-  width: 100%;
-}
 
-.season-block {
-  margin-bottom: clamp(24px, 4vw, 44px);
-}
 
-.season-block-title {
-  margin: 0 0 12px;
-  color: #fff;
-  font-size: clamp(18px, 2vw, 24px);
-  font-weight: 700;
-}
+
+
+
 
 /* Desktop: SIEMPRE 5 columnas */
 .episodes-grid,
@@ -912,15 +902,9 @@ span.meta-dropitem {
   overflow-wrap: anywhere;
 }
 
-.minfo-link {
-  color: #fff;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
 
-.minfo-link:hover {
-  color: rgba(255, 255, 255, .78);
-}
+
+
 
 section#more-section {
   width: 100%;
@@ -1207,9 +1191,4 @@ article.episode-card.more-card.collection-card:hover .more-card-thumb-wrap {
 #collection-grid .collection-card:focus-visible > .more-card-thumb-wrap {
   outline: var(--title-outline-size) solid #fff !important;
   outline-offset: var(--title-outline-gap);
-}
-
-.minfo-link {
-  cursor: pointer;
-  text-decoration: none !important;
 }

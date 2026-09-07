@@ -4,8 +4,8 @@
     --bg: #313131 !important;
     --panel: #313131 !important;
     --panel-2: #353535 !important;
-    --panel-3: #3a3a3a !important;
-    --satvblue: #434343 !important;
+    
+    
     --hover-tarjeta-bg: #313131 !important;
     --ui-pad-x: clamp(24px, 4vw, 58px) !important;
     --hero-synopsis-maxw: clamp(320px, 66vw, 720px) !important;
@@ -39,8 +39,7 @@
 }
 
 .nav-left,
-.nav-center,
-.nav-right {
+.nav-right{
     min-width: 0 !important;
 }
 
@@ -51,11 +50,7 @@
     flex-wrap: nowrap !important;
 }
 
-.nav-center {
-    display: flex !important;
-    justify-content: center !important;
-    min-width: 0 !important;
-}
+
 
 .nav-right {
     display: flex !important;
@@ -142,11 +137,7 @@ main.container {
         flex-wrap: wrap !important;
     }
 
-    .nav-center {
-        grid-area: center !important;
-        width: 100% !important;
-        justify-content: stretch !important;
-    }
+    
 
     .nav-right {
         grid-area: right !important;
@@ -238,9 +229,7 @@ main.container {
         flex-wrap: wrap !important;
     }
 
-    .nav-center {
-        width: 100% !important;
-    }
+    
 
     .topnav-search {
         height: 42px !important;
@@ -255,8 +244,7 @@ main.container {
     }
 
     .navlink,
-    .pill,
-    .btn {
+.btn{
         font-size: 13px !important;
     }
 
@@ -345,102 +333,34 @@ main.container {
    QUICK MODAL — TITLE ROW + (+) MYLIST + "Mas info"
 ========================================================= */
 
-#card-quick-modal-root .card-quick-modal-title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin: 0 0 10px 0;
-}
+
 
 /* Botón "+" dentro del modal (mismo ícono) */
-#card-quick-modal-root .card-quick-modal-mylist-btn {
-    width: 42px;
-    height: 42px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, .18);
-    background: rgb(from var(--panel) r g b / .55);
-    backdrop-filter: blur(8px);
-    color: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    touch-action: manipulation;
-    transition: background .18s ease, border-color .18s ease, transform .18s ease;
-}
 
-#card-quick-modal-root .card-quick-modal-mylist-btn:hover {
-    background: rgb(from var(--panel) r g b / .88);
-    border-color: #fff;
-    transform: scale(1.06);
-}
 
-#card-quick-modal-root .card-quick-modal-mylist-btn:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-}
+
+
+
 
 /* Estado activo (en Mi Lista) */
-#card-quick-modal-root .card-quick-modal-mylist-btn.is-active,
-.card-mylist-plus-btn.is-active {
+.card-mylist-plus-btn.is-active{
     border: 1px solid rgba(255, 255, 255, .18);
     background: rgb(from var(--panel) r g b / .55);
     color: #fff;
 }
 
 /* evita click "caído" en el path */
-#card-quick-modal-root .card-quick-modal-mylist-btn svg,
-#card-quick-modal-root .card-quick-modal-mylist-btn path {
-    pointer-events: none;
-}
+
 
 /* "Mas info" — recuadro blanco SIN fondo */
-#card-quick-modal-root .card-quick-modal-more-info {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 
-    margin-top: 14px;
-    padding: 10px 16px;
 
-    border-radius: var(--ep-radius);
-    border: 2px solid #fff;
-    background: transparent;
 
-    color: #fff;
-    font-weight: 700;
-    font-size: 14px;
-    text-decoration: none;
 
-    min-height: var(--control-h);
-    line-height: 1;
 
-    transition: background .18s ease, transform .18s ease, opacity .18s ease;
-}
-
-#card-quick-modal-root .card-quick-modal-more-info:hover {
-    background: rgba(255, 255, 255, .10);
-    transform: scale(1.02);
-}
-
-#card-quick-modal-root .card-quick-modal-more-info:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-}
 
 /* Mobile tuning */
-@media (max-width: 768px) {
-    #card-quick-modal-root .card-quick-modal-mylist-btn {
-        width: 40px;
-        height: 40px;
-    }
 
-    #card-quick-modal-root .card-quick-modal-more-info {
-        width: 100%;
-        justify-content: center;
-    }
-}
 
 #card-quick-modal-root .card-quick-modal-mylist-float,
 #card-quick-modal-root .card-quick-modal-mylist-float svg,
@@ -595,32 +515,15 @@ main.container {
     border-radius: inherit !important;
 }
 
-.card-hover-overlay {
-    border-radius: var(--radius) !important;
-    overflow: hidden !important;
-}
 
-.card-hover-overlay-inner {
-    border-radius: inherit !important;
-    overflow: hidden !important;
-}
 
-.card-hover-overlay-media {
-    border-radius: var(--radius) var(--radius) 0 0 !important;
-    overflow: hidden !important;
-}
 
-.card-hover-overlay-media .card-quick-modal-media,
-.card-hover-overlay-media .card-quick-modal-poster {
-    border-radius: inherit !important;
-    overflow: hidden !important;
-}
 
-.card-hover-overlay-media .card-quick-modal-video,
-.card-hover-overlay-media .card-quick-modal-poster-img {
-    border-radius: inherit !important;
-    overflow: hidden !important;
-}
+
+
+
+
+
 
 .card .card-collection-overlay {
     overflow: hidden !important;
@@ -663,15 +566,12 @@ main.container {
 }
 
 .overlay-hover-tarjeta,
-.overlay-hover-tarjeta-inner,
-.card-hover-overlay,
-.card-hover-overlay-inner {
+.overlay-hover-tarjeta-inner{
     border-radius: var(--hover-tarjeta-radio) !important;
     overflow: hidden !important;
 }
 
-.overlay-hover-tarjeta-media,
-.card-hover-overlay-media {
+.overlay-hover-tarjeta-media{
     border-radius: var(--hover-tarjeta-radio) var(--hover-tarjeta-radio) 0 0 !important;
     overflow: hidden !important;
 }

@@ -1,11 +1,11 @@
 /* styles.css */
 
 /* ================= CUSTOM FONTS ================= */
-@import url('fonts/amazon/AEmber.css');
-@import url('fonts/discord/ggsans/GGSans.css');
-@import url('fonts/satvplusfont/satvplusfont.css');
-@import url('fonts/premium/proximanova/ParamountPN.css');
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+@import url("fonts/amazon/AEmber.css");
+@import url("fonts/discord/ggsans/GGSans.css");
+@import url("fonts/satvplusfont/satvplusfont.css");
+@import url("fonts/premium/proximanova/ParamountPN.css");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap");
 
 /* =========================================================
    SATV+ — ESTILOS GENERALES REESCRITOS DESDE CERO
@@ -15,8 +15,8 @@
   --bg: #313131;
   --panel: #313131;
   --panel-2: #353535;
-  --panel-3: #3a3a3a;
-  --satvblue: #434343;
+  
+  
   --text: #f5f7fb;
   --muted: #b6bfd1;
   --line: rgba(255, 255, 255, .10);
@@ -39,14 +39,14 @@
   /* Layout */
   --container-max: 1920px;
   --ui-pad-x: clamp(10px, 2.4vw, 28px);
-  --ui-pad-y: clamp(10px, 1.6vw, 18px);
-  --section-x: clamp(10px, 2.4vw, 28px);
+  
+  
   --hero-pad-x: clamp(16px, 5vw, 58px);
   --hero-pad-y: clamp(16px, 3vw, 32px);
-  --logo-gap: 18px;
+  
 
   /* Hero */
-  --hero-overlay: #313131;
+  
   --hero-fade-height: 45%;
   --hero-h-desktop: clamp(420px, 56vw, 946px);
   --hero-title-max: min(720px, 96%);
@@ -65,7 +65,7 @@
   --hover-tarjeta-radio: var(--media-card-radius);
   --hover-tarjeta-margen-seguro: 32px;
   /* Legado: la posición vertical ya no se aplica mediante esta variable. */
-  --hover-tarjeta-y-abierto: 0px;
+  
   --hover-tarjeta-accion-alto: 52px;
   --hover-tarjeta-icono-play: 34px;
   --hover-tarjeta-boton-icono: 52px;
@@ -157,11 +157,7 @@ button,
   margin-inline: auto;
 }
 
-.hr {
-  height: 1px;
-  border: 0;
-  background: var(--line);
-}
+
 
 .muted {
   color: var(--muted);
@@ -194,9 +190,8 @@ button,
 }
 
 .nav-left,
-.nav-center,
 .nav-right,
-.nav-actions {
+.nav-actions{
   display: flex;
   align-items: center;
   min-width: 0;
@@ -208,9 +203,7 @@ button,
   flex-wrap: nowrap;
 }
 
-.nav-center {
-  justify-content: center;
-}
+
 
 .nav-right {
   justify-self: end;
@@ -245,17 +238,11 @@ img.brand-logo {
   object-position: left center;
 }
 
-.brand-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: var(--media-square-radius);
-  background: #fff;
-}
+
 
 .navlink,
 .btn,
-.pill,
-.control-center-trigger {
+.control-center-trigger{
   min-height: 38px;
   border-radius: var(--radius);
   text-decoration: none;
@@ -283,8 +270,7 @@ img.brand-logo {
   border-color: var(--line);
 }
 
-.btn,
-.pill {
+.btn{
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -300,18 +286,15 @@ img.brand-logo {
 }
 
 .btn:hover,
-.pill:hover,
 .btn.ghost:hover,
-a.pill.profile-link:hover,
-button#btn-logout:hover {
+a.pill.profile-link:hover{
   color: #000;
   background: #dedede;
 }
 
 .btn:focus-visible,
-.pill:focus-visible,
 .navlink:focus-visible,
-.control-center-trigger:focus-visible {
+.control-center-trigger:focus-visible{
   outline: 2px solid #fff;
   outline-offset: 3px;
 }
@@ -1166,9 +1149,7 @@ label {
   font-size: 13px;
 }
 
-#season-dropdown-mount .dropdown label {
-  display: none;
-}
+
 
 input,
 select,
@@ -1219,34 +1200,18 @@ textarea {
 }
 
 /* ================= PLAYER / LEGACY EPISODES ================= */
-.video-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--media-card-radius);
-  overflow: hidden;
-}
 
-media-player,
-.media-player {
+
+media-player{
   display: block;
   width: 100%;
   height: 100%;
   background: #000;
 }
 
-#episodes-wrap {
-  width: 100%;
-  max-width: min(88em, 100%);
-  margin-inline: auto;
-  padding-inline: clamp(10px, 2vw, 24px);
-}
 
-.ep-list {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-}
+
+
 
 .ep {
   position: relative;
@@ -1267,42 +1232,17 @@ media-player,
   border-color: var(--line-strong);
 }
 
-.ep-number {
-  width: 1em;
-  font-size: clamp(24px, 2.5vw, 35px);
-  text-align: right;
-}
 
-.ep-thumbnail {
-  width: clamp(132px, 18vw, 177px);
-  aspect-ratio: 16 / 9;
-  border-radius: var(--media-card-radius);
-  background-size: cover;
-  background-position: center;
-}
 
-.ep-title {
-  width: clamp(160px, 18vw, 260px);
-  margin: 0;
-  color: var(--text);
-  font-size: clamp(14px, .7vw + 10px, 18px);
-  line-height: 1.3;
-  font-weight: 700;
-}
 
-.ep-synopsis {
-  color: #fff;
-  font-size: clamp(12px, .5vw + 10px, 14px);
-  line-height: 1.45;
-}
 
-.ep-action {
-  margin-left: auto;
-}
 
-.ep-synopsis-expander {
-  display: none;
-}
+
+
+
+
+
+
 
 /* ================= GENERIC DROPDOWN ================= */
 .dropdown {
@@ -1311,65 +1251,19 @@ media-player,
   min-width: 0;
 }
 
-.dropdown-selected {
-  min-width: 190px;
-  min-height: 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 9px 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, .06);
-  color: #fff;
-  cursor: pointer;
-  transition: background-color .16s ease, border-color .16s ease;
-}
 
-.dropdown-selected:hover,
-.dropdown.open .dropdown-selected {
-  background: rgba(255, 255, 255, .10);
-  border-color: #fff;
-}
 
-.dropdown-text {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
-.dropdown-arrow {
-  width: 18px;
-  height: 18px;
-  display: grid;
-  place-items: center;
-}
 
-.dropdown-arrow svg {
-  width: 100%;
-  height: 100%;
-}
 
-.dropdown-options {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  z-index: 1000;
-  width: max(100%, 220px);
-  max-height: 320px;
-  display: none;
-  padding: 6px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--panel);
-  overflow-y: auto;
-}
 
-.dropdown.open .dropdown-options {
-  display: block;
-}
+
+
+
+
+
+
+
 
 .dropdown-option {
   width: 100%;
@@ -1391,11 +1285,7 @@ media-player,
   background: rgba(255, 255, 255, .08);
 }
 
-.dropdown-separator {
-  height: 1px;
-  margin: 5px 4px;
-  background: var(--line);
-}
+
 
 /* ================= TOASTS ================= */
 .toast-host {
@@ -2322,11 +2212,7 @@ body>.overlay-hover-tarjeta.overlay-hover-cerrando {
   white-space: normal;
 }
 
-.card-hover-portal,
-.card-hover-preview,
-.card-hover-overlay {
-  border-radius: var(--hover-tarjeta-radio);
-}
+
 
 /* ================= ALERTS / CONTROL CENTER ================= */
 .alerts-bell,
@@ -2748,9 +2634,7 @@ button.alerts-tab:hover {
   padding-bottom: 18px;
 }
 
-.ep.expanded .ep-synopsis-expander {
-  display: block;
-}
+
 
 .fa-solid,
 .fa-regular {
@@ -2761,37 +2645,13 @@ button.alerts-tab:hover {
   border-radius: var(--radius);
 }
 
-.dropdown-option-main {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
-.dropdown-option-count {
-  flex: 0 0 auto;
-  color: var(--muted);
-  font-size: 12px;
-}
 
-.panel-header-plus {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: var(--media-square-radius);
-  background: rgba(255, 255, 255, .05);
-  color: #fff;
-  cursor: pointer;
-  transition: background-color .16s ease, border-color .16s ease;
-}
 
-.panel-header-plus:hover {
-  background: rgba(255, 255, 255, .12);
-  border-color: #fff;
-}
+
+
+
+
 
 .alerts-item-dot {
   width: 8px;
@@ -2800,16 +2660,13 @@ button.alerts-tab:hover {
   background: #fff;
 }
 
-.fa-magnifying-glass::before,
-.fa-search::before {
+.fa-magnifying-glass::before{
   line-height: 1;
 }
 
-.card-image-only,
-.image-only-card,
 .episode-card,
 .episode-thumb-wrap,
-.more-card-thumb-wrap {
+.more-card-thumb-wrap{
   border-radius: var(--media-card-radius);
 }
 
@@ -2874,10 +2731,7 @@ button.alerts-tab:hover {
     grid-area: left;
   }
 
-  .nav-center {
-    grid-area: center;
-    width: 100%;
-  }
+  
 
   .nav-right {
     grid-area: right;
@@ -2924,8 +2778,7 @@ button.alerts-tab:hover {
   }
 
   .nav-left,
-  .nav-right,
-  .nav-center {
+.nav-right{
     width: 100%;
     justify-content: flex-start;
   }
@@ -3021,10 +2874,7 @@ button.alerts-tab:hover {
     flex-wrap: wrap;
   }
 
-  .ep-action {
-    width: 100%;
-    margin-left: 0;
-  }
+  
 }
 
 @media (hover: none) and (pointer: coarse) {

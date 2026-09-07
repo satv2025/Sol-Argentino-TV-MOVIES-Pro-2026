@@ -1,9 +1,9 @@
 /* ================= CUSTOM FONTS — SATVPlus Font ================= */
-@import url('fonts/amazon/AEmber.css');
-@import url('fonts/discord/ggsans/GGSans.css');
-@import url('fonts/satvplusfont/satvplusfont.css');
-@import url('fonts/premium/proximanova/ParamountPN.css');
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+@import url("fonts/amazon/AEmber.css");
+@import url("fonts/discord/ggsans/GGSans.css");
+@import url("fonts/satvplusfont/satvplusfont.css");
+@import url("fonts/premium/proximanova/ParamountPN.css");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap");
 /* =========================================================
    SATV+ ABOUT / WIKI
    Baseado en about.html + paleta/tokens de styles.css
@@ -13,10 +13,10 @@
     /* Paleta principal tomada de styles.css */
     --bg: #313131;
     --panel: #313131;
-    --panel2: #353535;
+    
     --text: #f5f7fb;
     --muted: #b6bfd1;
-    --satvblue: #434343;
+    
     --line: rgba(255, 255, 255, .10);
     --shadow: none;
 
@@ -30,12 +30,12 @@
     --about-y: clamp(14px, 2.4vw, 28px);
     --about-gap: clamp(18px, 3vw, 34px);
 
-    --about-card: rgba(255, 255, 255, .035);
-    --about-card-strong: rgba(255, 255, 255, .06);
-    --about-card-hover: rgba(255, 255, 255, .075);
+    
+    
+    
     --about-border: var(--line);
     --about-border-strong: rgba(255, 255, 255, .16);
-    --about-soft: rgba(255, 255, 255, .72);
+    
     --about-link: #fff;
     --about-link-muted: rgba(255, 255, 255, .84);
 }

@@ -128,6 +128,14 @@
   }
 }
 
-.account-status[data-type="success"] { color: #7ee2a8; }
-.account-status[data-type="pending"] { color: #ffd27a; }
-.account-status[data-type="error"] { color: #ff8f8f; }
+.account-status[data-type="success"] {
+  color: #7ee2a8;
+}
+
+.account-status[data-type="pending"] {
+  color: #ffd27a;
+}
+
+.account-status[data-type="error"] {
+  color: #ff8f8f;
+}

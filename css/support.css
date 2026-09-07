@@ -6,13 +6,13 @@
 ========================================================= */
 
 /* ================= CUSTOM FONT ================= */
-@import url('fonts/amazon/AEmber.css');
+@import url("fonts/amazon/AEmber.css");
 
 :root {
   --bg: #313131;
   --panel: #2b2b2b;
   --panel-2: #313131;
-  --panel-3: #383838;
+  
 
   --text: #f5f7fb;
   --muted: #aeb5c1;
@@ -21,7 +21,7 @@
   --line: rgba(255, 255, 255, .09);
   --line-strong: rgba(255, 255, 255, .20);
 
-  --white: #ffffff;
+  
 
   --radius: 9px;
   --content-max: 1180px;

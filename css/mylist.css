@@ -8,26 +8,26 @@
 ----------------------------- */
 :root {
     --satv-bg: #313131;
-    --satv-bg-2: #313131;
-    --satv-surface: #353535;
-    --satv-surface-2: #3a3a3a;
+    
+    
+    
 
     --satv-text: #f5f7fb;
     --satv-text-soft: rgba(245, 247, 251, 0.78);
     --satv-text-faint: rgba(182, 191, 209, 0.55);
 
     --satv-line: rgba(255, 255, 255, 0.10);
-    --satv-line-strong: rgba(255, 255, 255, 0.22);
+    
 
     --satv-accent: #434343;
     --satv-accent-2: #565656;
     --satv-accent-glow: rgba(255, 255, 255, 0.06);
 
-    --satv-card-bg: transparent;
-    --satv-card-shadow: none;
-    --satv-card-shadow-hover: none;
+    
+    
+    
 
-    --satv-radius-sm: 10px;
+    
     --satv-radius-md: 14px;
     --satv-radius-lg: 18px;
     --satv-radius-xl: 22px;
@@ -36,8 +36,8 @@
     --satv-grid-min: 270px;
 
     --satv-hero-height: clamp(220px, 34vh, 380px);
-    --satv-fast: 200ms cubic-bezier(.2, .8, .2, 1);
-    --satv-slow: 320ms cubic-bezier(.2, .8, .2, 1);
+    
+    
 }
 
 /* -----------------------------
