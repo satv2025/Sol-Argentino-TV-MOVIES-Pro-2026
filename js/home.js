@@ -2675,7 +2675,19 @@ function mountHomeHeroTrailerVideo(hero, movie) {
     if (p && typeof p.catch === 'function') p.catch(() => {});
   });
 
-  hero.appendChild(volBtn);
+  const heroRight = hero.querySelector('.home-hero-right');
+
+  if (heroRight) {
+    let heroActions = heroRight.querySelector('.home-hero-actions');
+
+    if (!heroActions) {
+    heroActions = document.createElement('div');
+    heroActions.className = 'home-hero-actions';
+    heroRight.appendChild(heroActions);
+  }
+
+  heroActions.appendChild(volBtn);
+  }
 
   syncVolumeUi();
 

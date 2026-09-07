@@ -41,7 +41,7 @@
   --ui-pad-x: clamp(10px, 2.4vw, 28px);
   --ui-pad-y: clamp(10px, 1.6vw, 18px);
   --section-x: clamp(10px, 2.4vw, 28px);
-  --hero-pad-x: clamp(16px, 5vw, 80px);
+  --hero-pad-x: clamp(16px, 5vw, 58px);
   --hero-pad-y: clamp(16px, 3vw, 32px);
   --logo-gap: 18px;
 
@@ -262,6 +262,10 @@ img.brand-logo {
   white-space: nowrap;
 }
 
+.btn {
+  cursor: pointer;
+}
+
 .navlink {
   display: inline-flex;
   align-items: center;
@@ -302,12 +306,6 @@ a.pill.profile-link:hover,
 button#btn-logout:hover {
   color: #000;
   background: #dedede;
-}
-
-.btn.ghost,
-button#btn-logout {
-  color: #000;
-  background: #fff;
 }
 
 .btn:focus-visible,
@@ -470,32 +468,58 @@ button#btn-logout {
   position: relative;
   z-index: 2;
   width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  transform: none;
 }
 
 .home-hero-layout {
+  width: 100%;
+  min-width: 0;
   display: flex;
+  flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
-  gap: clamp(12px, 2vw, 28px);
-  width: 100%;
+  gap: 0;
 }
 
 .home-hero-left {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  max-width: var(--hero-left-max);
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: clamp(8px, 1vw, 14px);
-  width: 100%;
-  max-width: var(--hero-left-max);
-  min-width: 0;
 }
 
 .home-hero-right {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: var(--hero-volume-size);
+  margin: 0 0 0 auto;
+  padding: 0;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  min-width: var(--hero-volume-size);
-  margin-right: clamp(.5em, 2vw, 2em);
+  align-self: flex-end;
+}
+
+/* El volumen vive en: .home-hero-right > .home-hero-actions > .home-hero-volume-btn */
+.home-hero-right > .home-hero-actions {
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 0;
 }
 
 .home-hero-title,
@@ -518,7 +542,7 @@ button#btn-logout {
   gap: 6px;
   margin: 0;
   color: rgba(255, 255, 255, .86);
-  font-size: clamp(12px, .45vw + 10px, 14px);
+  font-size: clamp(12px, .45vw + 10px, 20px);
 }
 
 .home-hero-synopsis,
@@ -527,7 +551,7 @@ button#btn-logout {
   margin: 0;
   max-width: var(--hero-synopsis-maxw);
   color: rgba(255, 255, 255, .92);
-  font-size: clamp(13px, .5vw + 11px, 17px);
+  font-size: clamp(13px, .5vw + 11px, 20px);
   line-height: 1.45;
 }
 
@@ -546,16 +570,12 @@ button#btn-logout {
   border-radius: var(--radius);
 }
 
-.home-hero-mylist,
-.home-hero-reminder {
+.home-hero-mylist {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 10px 12px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, .08);
-  color: #fff;
   font-weight: 700;
   cursor: pointer;
   transition: background-color .16s ease, border-color .16s ease;
@@ -580,11 +600,11 @@ button#btn-logout {
   fill: currentColor;
 }
 
-.hero > .home-hero-volume-btn {
-  position: absolute;
-  right: clamp(24px, 5vw, 50px);
-  bottom: clamp(24px, 3vw, 48px);
+.home-hero-right > .home-hero-actions > .home-hero-volume-btn {
+    margin: 0;
+position: relative;
   z-index: 50;
+  flex: 0 0 auto;
   width: var(--hero-volume-size, 56px);
   height: var(--hero-volume-size, 56px);
   min-width: var(--hero-volume-size, 56px);
@@ -600,19 +620,27 @@ button#btn-logout {
   visibility: visible !important;
   pointer-events: auto !important;
   cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
-.hero > .home-hero-volume-btn:hover {
+.home-hero-right > .home-hero-actions > .home-hero-volume-btn:hover {
   background: rgba(51, 51, 51, .5);
   border-color: #fff;
 }
 
-.hero > .home-hero-volume-btn img {
+.home-hero-right > .home-hero-actions > .home-hero-volume-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.home-hero-right > .home-hero-actions > .home-hero-volume-btn img {
   display: block;
   width: 72%;
   height: 72%;
   object-fit: contain;
   filter: brightness(0) invert(1);
+  pointer-events: none;
 }
 
 /* ================= SECTIONS ================= */
@@ -2917,9 +2945,39 @@ button.alerts-tab:hover {
     padding-top: 18px;
   }
 
-  .home-hero-layout {
-    align-items: flex-end;
-  }
+.home-hero-layout {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0;
+}
+
+.home-hero-right {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: var(--hero-volume-size);
+  margin: 0 0 0 auto;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-self: flex-end;
+}
+
+.home-hero-right > .home-hero-actions {
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 0;
+}
 
   .home-hero-left,
   .home-hero-synopsis {
