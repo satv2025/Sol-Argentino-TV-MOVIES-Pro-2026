@@ -7,8 +7,7 @@
     --panel-3: #3a3a3a !important;
     --satvblue: #434343 !important;
     --hover-tarjeta-bg: #313131 !important;
-
-    --ui-pad-x: clamp(24px, 4vw, 54px) !important;
+    --ui-pad-x: clamp(24px, 4vw, 58px) !important;
     --hero-synopsis-maxw: clamp(320px, 66vw, 720px) !important;
 }
 
